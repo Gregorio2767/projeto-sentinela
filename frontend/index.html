@@ -1,79 +1,156 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Hospital Inova Saúde</title>
 
-    <!-- Link do CSS -->
+    <!-- CSS -->
     <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
 
     <div class="card">
-        <img src="logo.png" class="logo" alt="Logo">
 
+        <!-- Logo -->
+        <img src="logo.png" class="logo" alt="Logo Hospital Inova Saúde">
+
+        <!-- Título -->
         <h1>Bem-vindo</h1>
+
         <p>Acesso ao sistema do Hospital Inova Saúde</p>
 
-        <form>
-          <div class="input-group">
-    <input type="text" id="usuario" required>
-    <label>Usuário</label>
-</div>
+        <!-- Formulário de Login -->
+        <form onsubmit="login(event)">
 
-<div class="input-group">
-    <input type="password" id="senha" required>
-    <label>Senha</label>
-</div>
-          <button type="button" onclick="login()">Entrar</button>
+            <!-- Usuário -->
+            <div class="input-group">
+                <input
+                    type="text"
+                    id="usuario"
+                    required
+                    autocomplete="username"
+                >
+                <label for="usuario">Usuário</label>
+            </div>
+
+            <!-- Senha -->
+            <div class="input-group">
+                <input
+                    type="password"
+                    id="senha"
+                    required
+                    autocomplete="current-password"
+                >
+                <label for="senha">Senha</label>
+            </div>
+
+            <!-- Botão -->
+            <button type="submit" id="btnLogin">
+                Entrar
+            </button>
+
         </form>
-<script>
-function login() {
 
-    const usuario = document.getElementById("usuario").value;
-    const senha = document.getElementById("senha").value;
-
-    fetch("/login", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-            usuario: usuario.value,
-            senha: senha.value
-        })
-    })
-    .then(response => {
-        if (!response.ok) {
-            throw new Error("Usuário ou senha inválidos");
-        }
-        return response.json();
-    })
-    .then(data => {
-
-        console.log(data);
-
-        if (data.tipo === "triagem") location.href = "triagem.html";
-        if (data.tipo === "medico") location.href = "medico.html";
-        if (data.tipo === "atendimento") location.href = "atendimento.html";
-         {
-            alert("Tipo de usuário inválido.");
-        }
-
-    })
-    .catch(error => {
-        alert(error.message);
-        console.error(error);
-    });
-
-}
-</script>
+        <!-- Rodapé -->
         <div class="footer">
             © 2026 Hospital Inova Saúde
         </div>
+
     </div>
 
+
+    <script>
+
+        function login(event) {
+
+            // Impede o formulário de recarregar a página
+            event.preventDefault();
+
+            // Pega os valores digitados
+            const usuario = document.getElementById("usuario").value.trim();
+            const senha = document.getElementById("senha").value.trim();
+
+            const botao = document.getElementById("btnLogin");
+
+            // Verifica se os campos estão preenchidos
+            if (!usuario || !senha) {
+                alert("Preencha o usuário e a senha.");
+                return;
+            }
+
+            // Desabilita o botão enquanto faz o login
+            botao.disabled = true;
+            botao.textContent = "Entrando...";
+
+            // Envia os dados para o backend
+            fetch("/login", {
+                method: "POST",
+
+                headers: {
+                    "Content-Type": "application/json"
+                },
+
+                body: JSON.stringify({
+                    usuario: usuario,
+                    senha: senha
+                })
+            })
+
+            // Recebe a resposta do servidor
+            .then(response => {
+
+                if (!response.ok) {
+                    throw new Error("Usuário ou senha inválidos.");
+                }
+
+                return response.json();
+            })
+
+            // Verifica o tipo de usuário
+            .then(data => {
+
+                console.log("Resposta do servidor:", data);
+
+                if (data.tipo === "triagem") {
+
+                    window.location.href = "triagem.html";
+
+                } else if (data.tipo === "medico") {
+
+                    window.location.href = "medico.html";
+
+                } else if (data.tipo === "atendimento") {
+
+                    window.location.href = "atendimento.html";
+
+                } else {
+
+                    alert("Tipo de usuário inválido.");
+
+                    botao.disabled = false;
+                    botao.textContent = "Entrar";
+                }
+
+            })
+
+            // Trata erros
+            .catch(error => {
+
+                console.error("Erro no login:", error);
+
+                alert(error.message);
+
+                botao.disabled = false;
+                botao.textContent = "Entrar";
+            });
+        }
+
+    </script>
+
 </body>
+
 </html>

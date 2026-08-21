@@ -35,14 +35,14 @@ function login() {
     const usuario = document.getElementById("usuario").value;
     const senha = document.getElementById("senha").value;
 
-    fetch("http://localhost:3000/login", {
+    fetch("/login", {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
         },
         body: JSON.stringify({
-            usuario: usuario,
-            senha: senha
+            usuario: usuario.value,
+            senha: senha.value
         })
     })
     .then(response => {
@@ -55,13 +55,10 @@ function login() {
 
         console.log(data);
 
-        if (data.tipo === "triagem") {
-            window.location.href = "triagem.html";
-        } else if (data.tipo === "medico") {
-            window.location.href = "medico.html";
-        } else if (data.tipo === "atendimento") {
-            window.location.href = "atendimento.html";
-        } else {
+        if (data.tipo === "triagem") location.href = "triagem.html";
+        if (data.tipo === "medico") location.href = "medico.html";
+        if (data.tipo === "atendimento") location.href = "atendimento.html";
+         {
             alert("Tipo de usuário inválido.");
         }
 

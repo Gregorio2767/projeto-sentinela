@@ -1,0 +1,188 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Segoe UI',Arial,sans-serif;
+}
+
+body{
+    min-height:100vh;
+    background:linear-gradient(135deg,#0f2027,#203a43,#2c5364);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:30px;
+}
+.container{
+    width:100%;
+    max-width:1100px;
+    margin:auto;
+    background:#fff;
+    padding:40px;
+    border-radius:20px;
+    box-shadow:0 15px 40px rgba(0,0,0,.2);
+    text-align:center;
+}
+
+.card{
+    width:100%;
+    max-width:900px;
+    background:#fff;
+    border-radius:20px;
+    padding:35px;
+    box-shadow:0 15px 40px rgba(0,0,0,.25);
+}
+
+.logo{
+    display:block;
+    width:180px;
+    margin:0 auto 30px auto;
+}
+
+h1,
+h2,
+h3{
+    color:#0d4f7c;
+    text-align:center;
+    margin-bottom:20px;
+}
+
+input,
+select,
+textarea{
+    width:100%;
+    margin:10px 0;
+    padding:14px;
+    border:1px solid #cfd8dc;
+    border-radius:10px;
+    font-size:16px;
+    outline:none;
+    transition:.3s;
+}
+
+input:focus,
+select:focus,
+textarea:focus{
+    border-color:#1976d2;
+    box-shadow:0 0 8px rgba(25,118,210,.3);
+}
+
+textarea{
+    resize:vertical;
+    min-height:100px;
+}
+
+button{
+    width:100%;
+    padding:15px;
+    margin-top:15px;
+    border:none;
+    border-radius:10px;
+    background:#1976d2;
+    color:#fff;
+    font-size:17px;
+    font-weight:bold;
+    cursor:pointer;
+    transition:.3s;
+}
+
+button:hover{
+    background:#125ea8;
+    transform:translateY(-2px);
+}
+
+hr{
+    margin:30px 0;
+    border:none;
+    border-top:1px solid #ddd;
+}
+
+#triagens{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+    gap:20px;
+}
+
+#triagens .card,
+#listaMedicacoes .card{
+    background:#f8fbfd;
+    border-left:8px solid #1976d2;
+    border-radius:15px;
+    padding:20px;
+    box-shadow:0 5px 15px rgba(0,0,0,.1);
+}
+
+#triagens .card h3,
+#listaMedicacoes .card h3{
+    text-align:left;
+    margin-bottom:10px;
+}
+
+#triagens .card p,
+#listaMedicacoes .card p{
+    margin:8px 0;
+    color:#444;
+}
+
+#resultado{
+    margin-top:15px;
+    padding:15px;
+    border-radius:10px;
+    text-align:center;
+    font-weight:bold;
+    color:#fff;
+}
+
+.verde{
+    background:#2e7d32;
+    color:#fff;
+    padding:6px 12px;
+    border-radius:20px;
+    display:inline-block;
+}
+
+.amarelo{
+    background:#f9a825;
+    color:#fff;
+    padding:6px 12px;
+    border-radius:20px;
+    display:inline-block;
+}
+
+.vermelho{
+    background:#d32f2f;
+    color:#fff;
+    padding:6px 12px;
+    border-radius:20px;
+    display:inline-block;
+}
+
+::-webkit-scrollbar{
+    width:8px;
+}
+
+::-webkit-scrollbar-thumb{
+    background:#1976d2;
+    border-radius:10px;
+}
+
+::-webkit-scrollbar-track{
+    background:#e0e0e0;
+}
+
+@media(max-width:768px){
+
+.container,
+.card{
+    padding:20px;
+}
+
+#triagens{
+    grid-template-columns:1fr;
+}
+
+button{
+    font-size:16px;
+}
+
+}

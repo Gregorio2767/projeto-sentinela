@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head><link rel="stylesheet" href="css/triagem.css"></head>
+<body>
+<div class="container">
+  <img src="logo.png" class="logo" alt="Logo">
+<h2>Atendimento</h2>
+
+<input id="nome" placeholder="Nome">
+<input id="cpf" placeholder="CPF">
+
+<select id="tipo">
+  <option>Convenio</option>
+  <option>Particular</option>
+</select>
+
+<input type="file" id="foto">
+
+<button onclick="cadastrar()">Cadastrar</button>
+</div>
+
+<script>
+function cadastrar() {
+
+    const nome = document.getElementById("nome").value.trim();
+    const cpf = document.getElementById("cpf").value.trim();
+    const tipo = document.getElementById("tipo").value;
+    const foto = document.getElementById("foto").files[0];
+
+    if (
+        nome === "" ||
+        cpf === "" ||
+        tipo === "" ||
+        !foto
+    ) {
+        alert("Preencha todos os campos antes de cadastrar.");
+        return;
+    }
+
+    fetch("http://localhost:3000/atendimento", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            nome,
+            cpf,
+            tipo
+        })
+    })
+    .then(response => response.json())
+    .then(() => {
+        alert("Paciente cadastrado com sucesso!");
+
+        // Limpa o formulário
+        document.getElementById("nome").value = "";
+        document.getElementById("cpf").value = "";
+        document.getElementById("tipo").selectedIndex = 0;
+        document.getElementById("foto").value = "";
+
+        // Redireciona para a triagem
+        window.location.href = "triagem.html";
+    })
+    .catch(error => {
+        console.error(error);
+        alert("Erro ao cadastrar o paciente.");
+    });
+}
+</script>
+</body>
+</html>

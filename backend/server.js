@@ -33,14 +33,14 @@ function writeDB(data) {
 app.post("/login", (req, res) => {
     const { usuario, senha } = req.body;
 
-    const db = readDB();
-
     const user = db.usuarios.find(
         u => u.usuario === usuario && u.senha === senha
     );
 
     if (!user) {
-        return res.status(401).json({ erro: "Login inválido" });
+        return res.status(401).json({
+            erro: "Usuário ou senha inválidos"
+        });
     }
 
     res.json(user);

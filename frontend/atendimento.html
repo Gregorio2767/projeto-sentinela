@@ -33,8 +33,6 @@ function cadastrar() {
     const nome = document.getElementById("nome").value.trim();
     const cpf = document.getElementById("cpf").value.trim();
     const tipo = document.getElementById("tipo").value;
-    const foto = document.getElementById("foto").files[0];
-    const sexo = document.getElementById("sexo").value.trim();
 
     if (
         nome === "" ||
@@ -65,7 +63,7 @@ function cadastrar() {
         document.getElementById("nome").value = "";
         document.getElementById("cpf").value = "";
         document.getElementById("tipo").selectedIndex = 0;
-        document.getElementById("foto").value = "";
+      
 
         // Redireciona para a triagem
         window.location.href = "triagem.html";
